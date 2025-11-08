@@ -3,30 +3,42 @@
 
 
 start:
-  cli
+  cli ;Clear Interrupts
   xor ax, ax
   mov ds, ax
   mov es, ax
   mov ss, ax
   mov sp, 0x7c00
   sti ;Enable Interrupts
-  mov si, msg
 
+  mov si, hello_msg
+  call print_string
 
-print:
-  lodsb ;Loads byte at ds:si to AL and increments SI
-  cmp al,0 ; Check if end of msg
-  je exit
+get_inp:
+  xor ax, ax
+  mov ah, 0x0
+  int 0x16
+  cmp al, 0x08
+  je get_inp
   mov ah, 0x0E ; Disp char
   int 0x10
-  jmp print
-
+  jmp get_inp
 
 exit:
   cli
   hlt
 
-msg: db "Hello, World!", 0
+hello_msg: db "Welcome to BootMath!", 0x0D, 0x0A, 0
+
+print_string:
+  lodsb ;Loads byte at ds:si to AL and increments SI
+  cmp al,0 ; Check if end of msg
+  jne ps_cont
+  ret
+ps_cont:
+  mov ah, 0x0E ; Disp char
+  int 0x10
+  jmp print_string
 
 times 510 - ($ - $$) db 0
 
