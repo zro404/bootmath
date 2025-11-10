@@ -11,6 +11,9 @@ start:
   mov sp, 0x7c00
   sti ;Enable Interrupts
 
+  mov ax, 0x69
+  call push_op
+
   mov si, hello_msg
   call print_string
 
@@ -39,6 +42,8 @@ ps_cont:
   mov ah, 0x0E ; Disp char
   int 0x10
   jmp print_string
+
+%include "src/stack.asm"
 
 times 510 - ($ - $$) db 0
 
