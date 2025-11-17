@@ -1,7 +1,7 @@
 # Bootmath
 Simple x86 Realmode calculator
 
-![screenshot](screenshot.jpg)
+![screenshot](screenshot.png)
 
 ## Usage
 > Requires NASM
