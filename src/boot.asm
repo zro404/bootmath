@@ -95,7 +95,7 @@ exit:
   cli
   hlt
 
-hello_msg: db "Welcome to BootMath!", 0x0D, 0x0A, 0
+hello_msg: db 0x0A, "Welcome to BootMath!", 0x0D, 0x0A, "> ", 0
 long_op_msg: db 0x0D, 0x0A, "Operation Exceeds 8bits!", 0
 
 print_string:
