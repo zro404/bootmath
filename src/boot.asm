@@ -67,6 +67,7 @@ get_inp:
 call calc
 
 xor bx, bx
+xor cl, cl
 call pop_val
 convert_result:
   cmp al, 0x00
@@ -75,13 +76,14 @@ convert_result:
   div dl
   mov cl, al
   mov al, ah
-  add al, 0x30
+  mov ah, 0x00
   call push_val
   mov al, cl
   jmp convert_result
 
 print_result:
   call pop_val
+  add al, 0x30
   mov ah, 0x0E 
   int 0x10
   mov bx, [val_ptr]
